@@ -1,0 +1,24 @@
+import random
+import asyncio
+
+precio_min = 20000
+
+async def ofertar(participante):
+    
+    await asyncio.sleep(random.randint(0,10))
+    listaMontos[int(ord(participante))-97]=random.randint(precio_min,precio_max)
+
+async def main():
+    await asyncio.gather(ofertar('a'),ofertar('b'),ofertar('c'),ofertar('d'),ofertar('e'),timeout = 60)
+    print("Ofertas finales: {'a':",listaMontos[0],",'b':",listaMontos[1],",'c':",listaMontos[2],",'d':",listaMontos[3],",'e':",listaMontos[4],"}\nEl ganador es: ",chr(posicionGanador(listaMontos)+97))
+
+def posicionGanador(listaMontos):
+    mayor = 0
+    for i in range(len(listaMontos)):
+        if listaMontos[i]>=mayor:
+            mayor=listaMontos[i]
+            posicionMayor = i
+    return posicionMayor
+if __name__ == '__main__':
+    listaMontos = [0,0,0,0,0]
+    asyncio.run(main())
